@@ -98,7 +98,7 @@ public class CustomModelAttribute {
 
     private static Entity getBukkitEntity(Npc npc) {
         // get the nms entity object from the Npc implementation classes
-        Object nmsEntity = ReflectionUtils.getValue(npc, "npc");
+        Object nmsEntity = npc.getNmsEntity();
         if (nmsEntity == null) {
             // TODO: create fake nms / bukkit entity object once FancyNpcs itself doesn't store the entity object anymore (when migrated to FancySitula)
             FancyNpcsModelPlugin.get().getFancyLogger().error("Failed to get NMS entity from NPC");

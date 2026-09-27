@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_5.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_5.ReflectionHelper;
 import net.minecraft.world.entity.AgeableMob;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.EntityType;
@@ -29,7 +28,7 @@ public class AgeableMobAttributes {
     }
 
     private static void setBaby(Npc npc, String value) {
-        AgeableMob mob = ReflectionHelper.getEntity(npc);
+        AgeableMob mob = npc.getNmsEntity();
 
         boolean isBaby = Boolean.parseBoolean(value);
 

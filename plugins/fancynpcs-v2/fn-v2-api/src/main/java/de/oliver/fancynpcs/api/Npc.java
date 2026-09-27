@@ -214,6 +214,15 @@ public abstract class Npc {
 
     public abstract int getEntityId();
 
+    /**
+     * Gets the backing Nms entity.
+     *
+     * @param <T> the {@link NpcData#getType()} of the npc
+     * @return the entity if the npc is created
+     */
+    @ApiStatus.Internal
+    public abstract <T> T getNmsEntity();
+
     public NpcData getData() {
         return data;
     }

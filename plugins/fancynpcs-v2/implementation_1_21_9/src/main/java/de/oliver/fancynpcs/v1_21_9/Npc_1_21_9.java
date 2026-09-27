@@ -491,7 +491,8 @@ public class Npc_1_21_9 extends Npc {
         return npc.getId();
     }
 
-    public Entity getNpc() {
-        return npc;
+    @Override
+    public <T> T getNmsEntity() {
+        return (T) npc;
     }
 }
