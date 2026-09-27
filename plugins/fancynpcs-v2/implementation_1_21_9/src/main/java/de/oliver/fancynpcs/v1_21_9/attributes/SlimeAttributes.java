@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_9.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_9.ReflectionHelper;
 import net.minecraft.world.entity.monster.Slime;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class SlimeAttributes {
     }
 
     private static void setSize(Npc npc, String value) {
-        Slime slime = ReflectionHelper.getEntity(npc);
+        Slime slime = npc.getNmsEntity();
 
         int size;
         try {

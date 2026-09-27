@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.world.entity.raid.Raider;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Illager;
@@ -29,7 +28,7 @@ public class IllagerAttributes {
     }
 
     private static void setCelebrating(Npc npc, String value) {
-        Raider raider = ReflectionHelper.getEntity(npc);
+        Raider raider = npc.getNmsEntity();
 
         boolean isCelebrating = Boolean.parseBoolean(value);
 

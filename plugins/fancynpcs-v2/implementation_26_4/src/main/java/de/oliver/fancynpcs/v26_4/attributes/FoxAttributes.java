@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.world.entity.animal.fox.Fox;
 import org.bukkit.entity.EntityType;
 
@@ -35,14 +34,14 @@ public class FoxAttributes {
     }
 
     private static void setType(Npc npc, String value) {
-        Fox fox = ReflectionHelper.getEntity(npc);
+        Fox fox = npc.getNmsEntity();
 
         Fox.Variant type = Fox.Variant.valueOf(value.toUpperCase());
         fox.setVariant(type);
     }
 
     private static void setPose(Npc npc, String value) {
-        Fox fox = ReflectionHelper.getEntity(npc);
+        Fox fox = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "standing" -> {

@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_1_1.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_1_1.ReflectionHelper;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.item.DyeColor;
 import org.bukkit.entity.EntityType;
@@ -34,13 +33,13 @@ public class SheepAttributes {
     }
 
     private static void setColor(Npc npc, String value) {
-        Sheep sheep = ReflectionHelper.getEntity(npc);
+        Sheep sheep = npc.getNmsEntity();
 
         sheep.setColor(DyeColor.byName(value.toLowerCase(), DyeColor.WHITE));
     }
 
     private static void setSheared(Npc npc, String value) {
-        Sheep sheep = ReflectionHelper.getEntity(npc);
+        Sheep sheep = npc.getNmsEntity();
 
         boolean sheared = Boolean.parseBoolean(value);
 

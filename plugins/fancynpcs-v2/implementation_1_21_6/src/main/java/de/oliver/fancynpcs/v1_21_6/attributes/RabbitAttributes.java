@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_6.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_6.ReflectionHelper;
 import net.minecraft.world.entity.animal.Rabbit;
 import org.bukkit.entity.EntityType;
 
@@ -28,7 +27,7 @@ public class RabbitAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        Rabbit rabbit = ReflectionHelper.getEntity(npc);
+        Rabbit rabbit = npc.getNmsEntity();
 
         Rabbit.Variant variant = Rabbit.Variant.valueOf(value.toUpperCase());
         rabbit.setVariant(variant);

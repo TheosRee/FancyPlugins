@@ -3,7 +3,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 import de.oliver.fancylib.ReflectionUtils;
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.animal.panda.Panda;
 import org.bukkit.entity.EntityType;
@@ -44,14 +43,14 @@ public class PandaAttributes {
     }
 
     private static void setGene(Npc npc, String value) {
-        Panda panda = ReflectionHelper.getEntity(npc);
+        Panda panda = npc.getNmsEntity();
 
         Panda.Gene gene = Panda.Gene.valueOf(value.toUpperCase());
         panda.setMainGene(gene);
     }
 
     private static void setPose(Npc npc, String value) {
-        Panda panda = ReflectionHelper.getEntity(npc);
+        Panda panda = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "standing" -> {
@@ -78,7 +77,7 @@ public class PandaAttributes {
     }
 
     private static void setEating(Npc npc, String value) {
-        Panda panda = ReflectionHelper.getEntity(npc);
+        Panda panda = npc.getNmsEntity();
 
         boolean eating = Boolean.parseBoolean(value);
 

@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_3.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_3.ReflectionHelper;
 import net.minecraft.world.InteractionHand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -29,7 +28,7 @@ public class LivingEntityAttributes {
     }
 
     private static void setUseItem(Npc npc, String value) {
-        net.minecraft.world.entity.LivingEntity livingEntity = ReflectionHelper.getEntity(npc);
+        net.minecraft.world.entity.LivingEntity livingEntity = npc.getNmsEntity();
 
         switch (value.toUpperCase()) {
             case "NONE" -> livingEntity.stopUsingItem();

@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_3.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_3.ReflectionHelper;
 import net.minecraft.world.entity.monster.Vex;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class VexAttributes {
     }
 
     private static void setCharging(Npc npc, String value) {
-        Vex vex = ReflectionHelper.getEntity(npc);
+        Vex vex = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "true" -> vex.setIsCharging(true);

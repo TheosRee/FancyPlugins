@@ -3,7 +3,6 @@ package de.oliver.fancynpcs.v1_21_9.attributes;
 import de.oliver.fancynpcs.api.FancyNpcsPlugin;
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_9.ReflectionHelper;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.camel.Camel;
 import org.bukkit.Bukkit;
@@ -28,7 +27,7 @@ public class CamelAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        Camel camel = ReflectionHelper.getEntity(npc);
+        Camel camel = npc.getNmsEntity();
 
         Bukkit.getGlobalRegionScheduler().run(FancyNpcsPlugin.get().getPlugin(), (_) -> {
             switch (value.toLowerCase()) {

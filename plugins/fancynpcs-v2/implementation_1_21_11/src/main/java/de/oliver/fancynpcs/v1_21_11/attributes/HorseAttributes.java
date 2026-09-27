@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.equine.Horse;
 import net.minecraft.world.entity.animal.equine.Markings;
@@ -50,21 +49,21 @@ public class HorseAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        Horse horse = ReflectionHelper.getEntity(npc);
+        Horse horse = npc.getNmsEntity();
 
         Variant variant = Variant.valueOf(value.toUpperCase());
         horse.setVariantAndMarkings(variant, horse.getMarkings());
     }
 
     private static void setMarkings(Npc npc, String value) {
-        Horse horse = ReflectionHelper.getEntity(npc);
+        Horse horse = npc.getNmsEntity();
 
         Markings markings = Markings.valueOf(value.toUpperCase());
         horse.setVariantAndMarkings(horse.getVariant(), markings);
     }
 
     private static void setPose(Npc npc, String value) {
-        AbstractHorse horse = ReflectionHelper.getEntity(npc);
+        AbstractHorse horse = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "standing" -> {

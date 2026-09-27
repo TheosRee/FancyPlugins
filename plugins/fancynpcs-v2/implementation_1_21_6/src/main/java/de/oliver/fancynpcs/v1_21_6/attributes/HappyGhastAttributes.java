@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_6.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_6.ReflectionHelper;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.HappyGhast;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +27,7 @@ public class HappyGhastAttributes {
     }
 
     private static void setHarness(Npc npc, String value) {
-        HappyGhast ghast = ReflectionHelper.getEntity(npc);
+        HappyGhast ghast = npc.getNmsEntity();
 
         ItemStack harnessItem = switch (value.toLowerCase()) {
             case "white" -> Items.WHITE_HARNESS.getDefaultInstance();

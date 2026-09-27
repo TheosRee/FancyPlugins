@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.world.entity.Entity;
 import org.bukkit.entity.EntityType;
 
@@ -61,7 +60,7 @@ public class EntityAttributes {
     }
 
     private static void setOnFire(Npc npc, String value) {
-        Entity entity = ReflectionHelper.getEntity(npc);
+        Entity entity = npc.getNmsEntity();
 
         boolean onFire = Boolean.parseBoolean(value);
 
@@ -70,7 +69,7 @@ public class EntityAttributes {
     }
 
     private static void setInvisible(Npc npc, String value) {
-        Entity entity = ReflectionHelper.getEntity(npc);
+        Entity entity = npc.getNmsEntity();
 
         boolean invisible = Boolean.parseBoolean(value);
 
@@ -78,7 +77,7 @@ public class EntityAttributes {
     }
 
     private static void setSilent(Npc npc, String value) {
-        Entity entity = ReflectionHelper.getEntity(npc);
+        Entity entity = npc.getNmsEntity();
 
         boolean silent = Boolean.parseBoolean(value);
 
@@ -86,7 +85,7 @@ public class EntityAttributes {
     }
 
     private static void setShaking(Npc npc, String value) {
-        Entity entity = ReflectionHelper.getEntity(npc);
+        Entity entity = npc.getNmsEntity();
 
         boolean shaking = Boolean.parseBoolean(value);
 
@@ -94,7 +93,7 @@ public class EntityAttributes {
     }
 
     private static void setOnGround(Npc npc, String value) {
-        Entity entity = ReflectionHelper.getEntity(npc);
+        Entity entity = npc.getNmsEntity();
 
         boolean onGround = Boolean.parseBoolean(value);
 

@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_6.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_6.ReflectionHelper;
 import net.minecraft.world.entity.Display;
 import org.bukkit.entity.EntityType;
 
@@ -28,7 +27,7 @@ public class DisplayAttributes {
     }
 
     private static void setBillboard(Npc npc, String value) {
-        Display display = ReflectionHelper.getEntity(npc);
+        Display display = npc.getNmsEntity();
 
         Display.BillboardConstraints billboard = Display.BillboardConstraints.valueOf(value.toUpperCase());
         display.setBillboardConstraints(billboard);

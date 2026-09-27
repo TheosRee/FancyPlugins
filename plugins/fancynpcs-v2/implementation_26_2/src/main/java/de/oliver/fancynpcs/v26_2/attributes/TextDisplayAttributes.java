@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import io.papermc.paper.adventure.PaperAdventure;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -28,7 +27,7 @@ public class TextDisplayAttributes {
     }
 
     private static void setText(Npc npc, String value) {
-        Display.TextDisplay display = ReflectionHelper.getEntity(npc);
+        Display.TextDisplay display = npc.getNmsEntity();
 
         Component text = MiniMessage.miniMessage().deserialize(value);
         display.setText(PaperAdventure.asVanilla(text));

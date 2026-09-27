@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class PiglinAttributes {
     }
 
     private static void setDancing(Npc npc, String value) {
-        Piglin piglin = ReflectionHelper.getEntity(npc);
+        Piglin piglin = npc.getNmsEntity();
 
         boolean dancing = Boolean.parseBoolean(value);
         piglin.setDancing(dancing);

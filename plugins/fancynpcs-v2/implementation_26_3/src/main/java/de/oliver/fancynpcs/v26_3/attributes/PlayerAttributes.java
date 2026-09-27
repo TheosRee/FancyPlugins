@@ -3,7 +3,6 @@ package de.oliver.fancynpcs.v26_3.attributes;
 import de.oliver.fancylib.ReflectionUtils;
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_3.ReflectionHelper;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Pose;
@@ -29,7 +28,7 @@ public class PlayerAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        Player player = ReflectionHelper.getEntity(npc);
+        Player player = npc.getNmsEntity();
 
         Pose pose = Pose.valueOf(value.toUpperCase());
 

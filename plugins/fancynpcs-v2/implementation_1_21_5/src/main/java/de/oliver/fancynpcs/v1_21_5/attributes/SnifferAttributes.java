@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_5.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_5.ReflectionHelper;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import org.bukkit.entity.EntityType;
 
@@ -28,7 +27,7 @@ public class SnifferAttributes {
     }
 
     private static void setState(Npc npc, String value) {
-        final Sniffer sniffer = ReflectionHelper.getEntity(npc);
+        final Sniffer sniffer = npc.getNmsEntity();
 
         Sniffer.State state = Sniffer.State.valueOf(value.toUpperCase());
         sniffer.transitionTo(state);

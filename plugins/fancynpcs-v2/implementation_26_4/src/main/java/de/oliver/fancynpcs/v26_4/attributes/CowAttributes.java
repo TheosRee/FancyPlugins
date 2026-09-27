@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +37,7 @@ public class CowAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        final Cow cow = ReflectionHelper.getEntity(npc);
+        final Cow cow = npc.getNmsEntity();
 
         Holder<CowVariant> variant = getCowVariantRegistry()
                 .get(ResourceKey.create(

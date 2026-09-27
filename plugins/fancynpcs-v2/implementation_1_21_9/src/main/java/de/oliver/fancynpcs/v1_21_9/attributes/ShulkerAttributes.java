@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_9.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_9.ReflectionHelper;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.item.DyeColor;
 import org.bukkit.entity.EntityType;
@@ -36,14 +35,14 @@ public class ShulkerAttributes {
     }
 
     private static void setColor(Npc npc, String value) {
-        Shulker shulker = ReflectionHelper.getEntity(npc);
+        Shulker shulker = npc.getNmsEntity();
 
         DyeColor color = DyeColor.byName(value.toLowerCase(), DyeColor.PURPLE);
         shulker.getEntityData().set(Shulker.DATA_COLOR_ID, (byte) color.getId());
     }
 
     private static void setShield(Npc npc, String value) {
-        Shulker shulker = ReflectionHelper.getEntity(npc);
+        Shulker shulker = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "closed" -> shulker.setRawPeekAmount(0);

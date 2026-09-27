@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Display;
@@ -32,7 +31,7 @@ public class BlockDisplayAttributes {
     }
 
     private static void setBlock(Npc npc, String value) {
-        Display.BlockDisplay display = ReflectionHelper.getEntity(npc);
+        Display.BlockDisplay display = npc.getNmsEntity();
 
         Block block = BuiltInRegistries.BLOCK.getValue(Identifier.parse(value.toLowerCase()));
 

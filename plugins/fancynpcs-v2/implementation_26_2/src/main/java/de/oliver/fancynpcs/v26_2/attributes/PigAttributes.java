@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -47,7 +46,7 @@ public class PigAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        final Pig pig = ReflectionHelper.getEntity(npc);
+        final Pig pig = npc.getNmsEntity();
 
         Holder<PigVariant> variant = getPigVariantRegistry()
                 .get(ResourceKey.create(
@@ -60,7 +59,7 @@ public class PigAttributes {
     }
 
     private static void setHasSaddle(Npc npc, String value) {
-        Pig pig = ReflectionHelper.getEntity(npc);
+        Pig pig = npc.getNmsEntity();
 
         boolean hasSaddle = Boolean.parseBoolean(value.toLowerCase());
 

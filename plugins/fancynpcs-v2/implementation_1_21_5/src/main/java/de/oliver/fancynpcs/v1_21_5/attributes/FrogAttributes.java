@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_5.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_5.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +37,7 @@ public class FrogAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        final Frog frog = ReflectionHelper.getEntity(npc);
+        final Frog frog = npc.getNmsEntity();
 
         Holder<FrogVariant> variant = getFrogVariantRegistry()
                 .get(ResourceKey.create(

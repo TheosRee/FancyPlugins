@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -60,7 +59,7 @@ public class WolfAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        Wolf wolf = ReflectionHelper.getEntity(npc);
+        Wolf wolf = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "standing" -> wolf.setInSittingPose(false, false);
@@ -69,7 +68,7 @@ public class WolfAttributes {
     }
 
     private static void setAngry(Npc npc, String value) {
-        Wolf wolf = ReflectionHelper.getEntity(npc);
+        Wolf wolf = npc.getNmsEntity();
 
         boolean angry = Boolean.parseBoolean(value.toLowerCase());
 
@@ -77,7 +76,7 @@ public class WolfAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        Wolf wolf = ReflectionHelper.getEntity(npc);
+        Wolf wolf = npc.getNmsEntity();
 
         Registry<WolfVariant> registry = wolf.level().registryAccess().lookupOrThrow(Registries.WOLF_VARIANT);
 
@@ -105,7 +104,7 @@ public class WolfAttributes {
     }
 
     private static void setCollarColor(Npc npc, String value) {
-        Wolf wolf = ReflectionHelper.getEntity(npc);
+        Wolf wolf = npc.getNmsEntity();
 
         if (value.equalsIgnoreCase("none") || value.isEmpty()) {
             // Reset to no collar

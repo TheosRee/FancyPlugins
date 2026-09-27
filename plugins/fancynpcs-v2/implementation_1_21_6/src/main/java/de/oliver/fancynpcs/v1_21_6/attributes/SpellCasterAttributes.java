@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_6.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_6.ReflectionHelper;
 import net.minecraft.world.entity.monster.SpellcasterIllager;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Spellcaster;
@@ -29,7 +28,7 @@ public class SpellCasterAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        SpellcasterIllager spellcasterIllager = ReflectionHelper.getEntity(npc);
+        SpellcasterIllager spellcasterIllager = npc.getNmsEntity();
 
         SpellcasterIllager.IllagerSpell spell = SpellcasterIllager.IllagerSpell.valueOf(value);
 

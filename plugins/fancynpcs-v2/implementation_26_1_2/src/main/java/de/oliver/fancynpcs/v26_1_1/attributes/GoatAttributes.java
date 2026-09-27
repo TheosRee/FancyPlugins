@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_1_1.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_1_1.ReflectionHelper;
 import net.minecraft.world.entity.animal.goat.Goat;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class GoatAttributes {
     }
 
     private static void setHorns(Npc npc, String value) {
-        Goat goat = ReflectionHelper.getEntity(npc);
+        Goat goat = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "none" -> {

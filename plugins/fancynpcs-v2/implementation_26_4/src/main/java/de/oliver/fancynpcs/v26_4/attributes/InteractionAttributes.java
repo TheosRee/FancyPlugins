@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.world.entity.Interaction;
 import org.bukkit.entity.EntityType;
 
@@ -32,7 +31,7 @@ public class InteractionAttributes {
     }
 
     private static void setHeight(Npc npc, String value) {
-        Interaction interaction = ReflectionHelper.getEntity(npc);
+        Interaction interaction = npc.getNmsEntity();
 
         float height;
         try {
@@ -45,7 +44,7 @@ public class InteractionAttributes {
     }
 
     private static void setWidth(Npc npc, String value) {
-        Interaction interaction = ReflectionHelper.getEntity(npc);
+        Interaction interaction = npc.getNmsEntity();
 
         float width;
         try {

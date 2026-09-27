@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class ArmadilloAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        Armadillo armadillo = ReflectionHelper.getEntity(npc);
+        Armadillo armadillo = npc.getNmsEntity();
 
         Armadillo.ArmadilloState state = Armadillo.ArmadilloState.valueOf(value.toUpperCase());
 

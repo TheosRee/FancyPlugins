@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class ArmorStandAttributes {
     }
 
     private static void setShowArms(Npc npc, String value) {
-        ArmorStand armorStand = ReflectionHelper.getEntity(npc);
+        ArmorStand armorStand = npc.getNmsEntity();
 
         boolean showArms = Boolean.parseBoolean(value.toLowerCase());
 

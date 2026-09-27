@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import net.minecraft.world.entity.animal.bee.Bee;
 import org.bukkit.entity.EntityType;
 
@@ -46,7 +45,7 @@ public class BeeAttributes {
     }
 
     private static void setAngry(Npc npc, String value) {
-        Bee bee = ReflectionHelper.getEntity(npc);
+        Bee bee = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "true" -> bee.setPersistentAngerEndTime(1);
@@ -55,7 +54,7 @@ public class BeeAttributes {
     }
 
     private static void setSting(Npc npc, String value) {
-        Bee bee = ReflectionHelper.getEntity(npc);
+        Bee bee = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "true" -> bee.setHasStung(false);
@@ -64,7 +63,7 @@ public class BeeAttributes {
     }
 
     private static void setNectar(Npc npc, String value) {
-        Bee bee = ReflectionHelper.getEntity(npc);
+        Bee bee = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "true" -> bee.setHasNectar(true);
@@ -73,7 +72,7 @@ public class BeeAttributes {
     }
 
     private static void setRolling(Npc npc, String value) {
-        Bee bee = ReflectionHelper.getEntity(npc);
+        Bee bee = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "true" -> bee.setRolling(true);

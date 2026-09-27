@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_4.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_4.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -53,7 +52,7 @@ public class CatAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        final Cat cat = ReflectionHelper.getEntity(npc);
+        final Cat cat = npc.getNmsEntity();
 
         Holder<CatVariant> variant = getCatVariantRegistry()
                 .get(ResourceKey.create(
@@ -66,7 +65,7 @@ public class CatAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        final Cat cat = ReflectionHelper.getEntity(npc);
+        final Cat cat = npc.getNmsEntity();
         switch (value.toLowerCase()) {
             case "standing" -> {
                 cat.setInSittingPose(false, false);
@@ -89,7 +88,7 @@ public class CatAttributes {
     }
 
     private static void setCollarColor(Npc npc, String value) {
-        Cat cat = ReflectionHelper.getEntity(npc);
+        Cat cat = npc.getNmsEntity();
 
         if (value.equalsIgnoreCase("none") || value.isEmpty()) {
             // Reset to no collar

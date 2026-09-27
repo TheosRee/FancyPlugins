@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_1_1.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_1_1.ReflectionHelper;
 import net.minecraft.world.entity.animal.fish.TropicalFish;
 import net.minecraft.world.item.DyeColor;
 import org.bukkit.entity.EntityType;
@@ -47,14 +46,14 @@ public class TropicalFishAttributes {
     }
 
     private static void setPattern(Npc npc, String value) {
-        TropicalFish tropicalFish = ReflectionHelper.getEntity(npc);
+        TropicalFish tropicalFish = npc.getNmsEntity();
 
         TropicalFish.Pattern pattern = TropicalFish.Pattern.valueOf(value.toUpperCase());
         tropicalFish.setPackedVariant(pattern.getPackedId());
     }
 
     private static void setBaseColor(Npc npc, String value) {
-        TropicalFish tropicalFish = ReflectionHelper.getEntity(npc);
+        TropicalFish tropicalFish = npc.getNmsEntity();
 
         DyeColor color = DyeColor.byName(value.toLowerCase(), DyeColor.WHITE);
         TropicalFish.Variant variant = new TropicalFish.Variant(tropicalFish.getPattern(), color, tropicalFish.getPatternColor());
@@ -62,7 +61,7 @@ public class TropicalFishAttributes {
     }
 
     private static void setPatternColor(Npc npc, String value) {
-        TropicalFish tropicalFish = ReflectionHelper.getEntity(npc);
+        TropicalFish tropicalFish = npc.getNmsEntity();
 
         DyeColor color = DyeColor.byName(value.toLowerCase(), DyeColor.WHITE);
         TropicalFish.Variant variant = new TropicalFish.Variant(tropicalFish.getPattern(), tropicalFish.getBaseColor(), color);

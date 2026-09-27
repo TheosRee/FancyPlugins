@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.world.entity.animal.allay.Allay;
 import org.bukkit.entity.EntityType;
 
@@ -25,7 +24,7 @@ public class AllayAttributes {
     }
 
     private static void setDancing(Npc npc, String value) {
-        Allay allay = ReflectionHelper.getEntity(npc);
+        Allay allay = npc.getNmsEntity();
 
         boolean dancing = Boolean.parseBoolean(value);
         allay.setDancing(dancing);

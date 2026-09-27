@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_11.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_11.ReflectionHelper;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import org.bukkit.entity.EntityType;
 
@@ -35,14 +34,14 @@ public class ParrotAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        Parrot parrot = ReflectionHelper.getEntity(npc);
+        Parrot parrot = npc.getNmsEntity();
 
         Parrot.Variant variant = Parrot.Variant.valueOf(value.toUpperCase());
         parrot.setVariant(variant);
     }
 
     private static void setPose(Npc npc, String value) {
-        Parrot parrot = ReflectionHelper.getEntity(npc);
+        Parrot parrot = npc.getNmsEntity();
 
         switch (value.toLowerCase()) {
             case "standing" -> {

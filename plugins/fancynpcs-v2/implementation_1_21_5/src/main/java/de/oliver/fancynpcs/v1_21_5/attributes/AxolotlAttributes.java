@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v1_21_5.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v1_21_5.ReflectionHelper;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import org.bukkit.entity.EntityType;
 
@@ -35,14 +34,14 @@ public class AxolotlAttributes {
     }
 
     private static void setVariant(Npc npc, String value) {
-        Axolotl axolotl = ReflectionHelper.getEntity(npc);
+        Axolotl axolotl = npc.getNmsEntity();
 
         Axolotl.Variant variant = Axolotl.Variant.valueOf(value.toUpperCase());
         axolotl.setVariant(variant);
     }
 
     private static void setPlayingDead(Npc npc, String value) {
-        Axolotl axolotl = ReflectionHelper.getEntity(npc);
+        Axolotl axolotl = npc.getNmsEntity();
 
         boolean playingDead = Boolean.parseBoolean(value);
         axolotl.setPlayingDead(playingDead);

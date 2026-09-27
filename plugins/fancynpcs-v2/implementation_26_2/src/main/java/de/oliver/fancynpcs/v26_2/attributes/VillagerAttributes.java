@@ -2,7 +2,6 @@ package de.oliver.fancynpcs.v26_2.attributes;
 
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
-import de.oliver.fancynpcs.v26_2.ReflectionHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -37,7 +36,7 @@ public class VillagerAttributes {
     }
 
     private static void setProfession(Npc npc, String value) {
-        Villager villager = ReflectionHelper.getEntity(npc);
+        Villager villager = npc.getNmsEntity();
 
         Holder<VillagerProfession> profession = BuiltInRegistries.VILLAGER_PROFESSION.get(Identifier.tryParse(value)).orElseThrow();
 
@@ -45,7 +44,7 @@ public class VillagerAttributes {
     }
 
     private static void setType(Npc npc, String value) {
-        Villager villager = ReflectionHelper.getEntity(npc);
+        Villager villager = npc.getNmsEntity();
 
         Holder<VillagerType> type = BuiltInRegistries.VILLAGER_TYPE.get(Identifier.tryParse(value)).orElseThrow();
 
