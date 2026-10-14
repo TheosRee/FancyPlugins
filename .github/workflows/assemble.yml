@@ -2,6 +2,7 @@ name: Assemble raw
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   build-plugins:
