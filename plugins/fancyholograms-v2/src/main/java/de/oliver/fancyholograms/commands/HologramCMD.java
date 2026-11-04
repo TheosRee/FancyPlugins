@@ -138,7 +138,11 @@ public final class HologramCMD extends Command {
                 return Collections.emptyList();
             }
 
-            return this.plugin.getHologramsManager().getPersistentHolograms().stream().map(hologram -> hologram.getData().getName()).filter(input -> input.toLowerCase(Locale.ROOT).startsWith(args[1].toLowerCase(Locale.ROOT))).toList();
+            String hologramName = args[1].toLowerCase(Locale.ROOT);
+            return this.plugin.getHologramsManager().getPersistentHolograms().stream()
+                    .map(hologram -> hologram.getData().getName())
+                    .filter(input -> input.toLowerCase(Locale.ROOT).startsWith(hologramName))
+                    .toList();
         }
 
         final var hologram = this.plugin.getHologramsManager().getHologram(args[1]).orElse(null);
@@ -274,12 +278,12 @@ public final class HologramCMD extends Command {
             return suggestions;
         }
 
-        if(args[2].equalsIgnoreCase("brightness")) {
-            if(args.length == 4) {
+        if (args[2].equalsIgnoreCase("brightness")) {
+            if (args.length == 4) {
                 return List.of("block", "sky");
             }
 
-            if(args.length > 5) {
+            if (args.length > 5) {
                 return Collections.emptyList();
             }
 

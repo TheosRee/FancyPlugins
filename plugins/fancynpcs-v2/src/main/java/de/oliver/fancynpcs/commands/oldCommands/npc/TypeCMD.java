@@ -53,7 +53,10 @@ public enum TypeCMD {
                     Bukkit.getOnlinePlayers().forEach(npc::checkAndUpdateVisibility);
                 });
             }
-            translator.translate("npc_type_success").withPrefix().replace("npc", npc.getData().getName()).replace("type", type.name().toLowerCase(Locale.ROOT)).send(sender);
+            translator.translate("npc_type_success").withPrefix()
+                    .replace("npc", npc.getData().getName())
+                    .replace("type", type.name().toLowerCase(Locale.ROOT))
+                    .send(sender);
         } else {
             translator.translate("command_npc_modification_cancelled").withPrefix().send(sender);
         }

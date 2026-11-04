@@ -123,7 +123,7 @@ public class FS_Mannequin extends FS_Entity {
 
     public boolean isImmovable() {
         Object value = immovableData.getValue();
-        return value != null ? (boolean) value : true;
+        return value == null || (boolean) value;
     }
 
     public void setImmovable(boolean immovable) {
@@ -148,6 +148,7 @@ public class FS_Mannequin extends FS_Entity {
 
     /**
      * Get the current pose.
+     *
      * @return One of POSE_STANDING, POSE_CROUCHING, POSE_SWIMMING, POSE_FLYING, POSE_SLEEPING
      */
     public String getPose() {
@@ -157,6 +158,7 @@ public class FS_Mannequin extends FS_Entity {
 
     /**
      * Set the mannequin's pose.
+     *
      * @param pose One of POSE_STANDING, POSE_CROUCHING, POSE_SWIMMING, POSE_FLYING, POSE_SLEEPING
      *             or the raw Pose enum name (STANDING, CROUCHING, SWIMMING, FALL_FLYING, SLEEPING)
      */

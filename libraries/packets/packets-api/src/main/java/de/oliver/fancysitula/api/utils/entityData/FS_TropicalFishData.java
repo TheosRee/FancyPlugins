@@ -55,10 +55,11 @@ public class FS_TropicalFishData {
     public static final int COLOR_BLACK = 15;
 
     /**
-     * Create combined variant data
-     * @param size 0 for small, 1 for large
-     * @param pattern pattern index (0-5)
-     * @param bodyColor DyeColor ordinal (0-15)
+     * Create combined variant data.
+     *
+     * @param size         0 for small, 1 for large
+     * @param pattern      pattern index (0-5)
+     * @param bodyColor    DyeColor ordinal (0-15)
      * @param patternColor DyeColor ordinal (0-15)
      */
     public static int createVariantData(int size, int pattern, int bodyColor, int patternColor) {
@@ -66,7 +67,9 @@ public class FS_TropicalFishData {
     }
 
     /**
-     * Get pattern index from name, returns -1 for small, -2 for large (unknown)
+     * Get pattern index from name.
+     *
+     * @return -1 for small, -2 for large (unknown)
      */
     public static int[] getPatternAndSize(String patternName) {
         return switch (patternName.toUpperCase(Locale.ROOT)) {
