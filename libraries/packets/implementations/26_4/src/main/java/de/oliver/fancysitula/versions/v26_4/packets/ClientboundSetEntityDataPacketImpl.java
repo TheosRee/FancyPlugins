@@ -1,5 +1,6 @@
 package de.oliver.fancysitula.versions.v26_4.packets;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import de.oliver.fancysitula.api.entities.FS_RealPlayer;
 import de.oliver.fancysitula.api.packets.FS_ClientboundSetEntityDataPacket;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.wolf.WolfVariant;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.Mannequin;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
 import net.minecraft.world.entity.npc.villager.Villager;
@@ -144,10 +146,10 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
         ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.npc.Villager", Villager.class);
 
         // Avatar (new in 1.21.11 - Player extends Avatar)
-        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.Avatar", net.minecraft.world.entity.Avatar.class);
+        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.Avatar", Avatar.class);
 
         // Mannequin (new in 1.21.11 - player-like entity without tab list)
-        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.decoration.Mannequin", net.minecraft.world.entity.decoration.Mannequin.class);
+        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.decoration.Mannequin", Mannequin.class);
     }
 
     public ClientboundSetEntityDataPacketImpl(int entityId, List<EntityData> entityData) {
@@ -272,7 +274,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.CAT_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -300,7 +302,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.COW_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -315,7 +317,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.CHICKEN_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -330,7 +332,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.PIG_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -391,7 +393,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
 
                 // Handle FS_GameProfile -> ResolvableProfile for Mannequin
                 if (data.getValue() instanceof FS_GameProfile profile && accessorFieldName.equals("DATA_PROFILE")) {
-                    com.mojang.authlib.GameProfile authProfile = GameProfileImpl.asVanilla(profile);
+                    GameProfile authProfile = GameProfileImpl.asVanilla(profile);
 
                     // Check if profile has resource pack texture assets
                     if (profile.hasTextureAssets()) {
@@ -446,25 +448,25 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                 // Handle Pose enum for Mannequin and other entities
                 if (data.getValue() instanceof String s && accessorFieldName.equals("DATA_POSE")) {
                     vanillaValue = switch (s.toUpperCase(Locale.ROOT)) {
-                        case "STANDING" -> net.minecraft.world.entity.Pose.STANDING;
-                        case "FALL_FLYING" -> net.minecraft.world.entity.Pose.FALL_FLYING;
-                        case "SLEEPING" -> net.minecraft.world.entity.Pose.SLEEPING;
-                        case "SWIMMING" -> net.minecraft.world.entity.Pose.SWIMMING;
-                        case "SPIN_ATTACK" -> net.minecraft.world.entity.Pose.SPIN_ATTACK;
-                        case "CROUCHING", "SNEAKING" -> net.minecraft.world.entity.Pose.CROUCHING;
-                        case "LONG_JUMPING" -> net.minecraft.world.entity.Pose.LONG_JUMPING;
-                        case "DYING" -> net.minecraft.world.entity.Pose.DYING;
-                        case "CROAKING" -> net.minecraft.world.entity.Pose.CROAKING;
-                        case "USING_TONGUE" -> net.minecraft.world.entity.Pose.USING_TONGUE;
-                        case "SITTING" -> net.minecraft.world.entity.Pose.SITTING;
-                        case "ROARING" -> net.minecraft.world.entity.Pose.ROARING;
-                        case "SNIFFING" -> net.minecraft.world.entity.Pose.SNIFFING;
-                        case "EMERGING" -> net.minecraft.world.entity.Pose.EMERGING;
-                        case "DIGGING" -> net.minecraft.world.entity.Pose.DIGGING;
-                        case "SLIDING" -> net.minecraft.world.entity.Pose.SLIDING;
-                        case "SHOOTING" -> net.minecraft.world.entity.Pose.SHOOTING;
-                        case "INHALING" -> net.minecraft.world.entity.Pose.INHALING;
-                        default -> net.minecraft.world.entity.Pose.STANDING;
+                        case "STANDING" -> Pose.STANDING;
+                        case "FALL_FLYING" -> Pose.FALL_FLYING;
+                        case "SLEEPING" -> Pose.SLEEPING;
+                        case "SWIMMING" -> Pose.SWIMMING;
+                        case "SPIN_ATTACK" -> Pose.SPIN_ATTACK;
+                        case "CROUCHING", "SNEAKING" -> Pose.CROUCHING;
+                        case "LONG_JUMPING" -> Pose.LONG_JUMPING;
+                        case "DYING" -> Pose.DYING;
+                        case "CROAKING" -> Pose.CROAKING;
+                        case "USING_TONGUE" -> Pose.USING_TONGUE;
+                        case "SITTING" -> Pose.SITTING;
+                        case "ROARING" -> Pose.ROARING;
+                        case "SNIFFING" -> Pose.SNIFFING;
+                        case "EMERGING" -> Pose.EMERGING;
+                        case "DIGGING" -> Pose.DIGGING;
+                        case "SLIDING" -> Pose.SLIDING;
+                        case "SHOOTING" -> Pose.SHOOTING;
+                        case "INHALING" -> Pose.INHALING;
+                        default -> Pose.STANDING;
                     };
                 }
 

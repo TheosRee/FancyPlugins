@@ -43,7 +43,7 @@ public final class ItemStackCommandType implements ParameterType<BukkitCommandAc
     @Override
     public SuggestionProvider<BukkitCommandActor> defaultSuggestions() {
         return context -> {
-            ArrayList<String> suggestions = new java.util.ArrayList<>();
+            ArrayList<String> suggestions = new ArrayList<>();
 
             StreamSupport.stream(Registry.MATERIAL.spliterator(), false)
                     .filter(Material::isItem)

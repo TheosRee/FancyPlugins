@@ -24,10 +24,10 @@ public class ClientboundSetEquipmentPacketImpl extends FS_ClientboundSetEquipmen
 
     @Override
     public Object createPacket() {
-        List<Pair<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack>> slots = new ArrayList<>();
+        List<Pair<EquipmentSlot, net.minecraft.world.item.ItemStack>> slots = new ArrayList<>();
 
         for (Map.Entry<FS_EquipmentSlot, ItemStack> entry : equipment.entrySet()) {
-            EquipmentSlot equipmentSlot = net.minecraft.world.entity.EquipmentSlot.byName(entry.getKey().name().toLowerCase(Locale.ROOT));
+            EquipmentSlot equipmentSlot = EquipmentSlot.byName(entry.getKey().name().toLowerCase(Locale.ROOT));
             net.minecraft.world.item.ItemStack itemStack = CraftItemStack.asNMSCopy(entry.getValue());
 
             slots.add(Pair.of(equipmentSlot, itemStack));

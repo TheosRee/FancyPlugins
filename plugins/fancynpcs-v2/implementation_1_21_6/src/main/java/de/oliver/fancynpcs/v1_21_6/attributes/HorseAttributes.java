@@ -3,6 +3,7 @@ package de.oliver.fancynpcs.v1_21_6.attributes;
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcAttribute;
 import de.oliver.fancynpcs.v1_21_6.ReflectionHelper;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.Markings;
 import net.minecraft.world.entity.animal.horse.Variant;
@@ -64,7 +65,7 @@ public class HorseAttributes {
     }
 
     private static void setPose(Npc npc, String value) {
-        net.minecraft.world.entity.animal.horse.AbstractHorse horse = ReflectionHelper.getEntity(npc);
+        AbstractHorse horse = ReflectionHelper.getEntity(npc);
 
         switch (value.toLowerCase(Locale.ROOT)) {
             case "standing" -> {

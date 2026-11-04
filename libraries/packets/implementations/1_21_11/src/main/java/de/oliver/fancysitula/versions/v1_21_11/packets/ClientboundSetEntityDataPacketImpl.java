@@ -1,13 +1,16 @@
 package de.oliver.fancysitula.versions.v1_21_11.packets;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.datafixers.util.Either;
 import de.oliver.fancysitula.api.entities.FS_RealPlayer;
 import de.oliver.fancysitula.api.packets.FS_ClientboundSetEntityDataPacket;
 import de.oliver.fancysitula.api.utils.FS_GameProfile;
-import de.oliver.fancysitula.versions.v1_21_11.utils.GameProfileImpl;
 import de.oliver.fancysitula.api.utils.reflections.ReflectionUtils;
+import de.oliver.fancysitula.versions.v1_21_11.utils.GameProfileImpl;
 import de.oliver.fancysitula.versions.v1_21_11.utils.VanillaPlayerAdapter;
 import io.papermc.paper.adventure.PaperAdventure;
 import net.kyori.adventure.text.Component;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,12 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Display;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Interaction;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.bee.Bee;
@@ -30,7 +28,10 @@ import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.animal.cow.Cow;
 import net.minecraft.world.entity.animal.cow.MushroomCow;
+import net.minecraft.world.entity.animal.equine.Horse;
+import net.minecraft.world.entity.animal.equine.Llama;
 import net.minecraft.world.entity.animal.feline.Cat;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
 import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.frog.FrogVariant;
@@ -45,25 +46,19 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.wolf.WolfVariant;
-import net.minecraft.world.entity.animal.fish.TropicalFish;
-import net.minecraft.world.entity.animal.equine.Horse;
-import net.minecraft.world.entity.animal.equine.Llama;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.Mannequin;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.npc.villager.Villager;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.component.ResolvableProfile;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.npc.villager.VillagerType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
-import net.minecraft.core.ClientAsset;
-import com.mojang.datafixers.util.Either;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.component.ResolvableProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
@@ -150,10 +145,10 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
         ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.npc.Villager", Villager.class);
 
         // Avatar (new in 1.21.11 - Player extends Avatar)
-        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.Avatar", net.minecraft.world.entity.Avatar.class);
+        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.Avatar", Avatar.class);
 
         // Mannequin (new in 1.21.11 - player-like entity without tab list)
-        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.decoration.Mannequin", net.minecraft.world.entity.decoration.Mannequin.class);
+        ENTITY_CLASS_CACHE.put("net.minecraft.world.entity.decoration.Mannequin", Mannequin.class);
     }
 
     public ClientboundSetEntityDataPacketImpl(int entityId, List<EntityData> entityData) {
@@ -278,7 +273,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.CAT_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -306,7 +301,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.COW_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -321,7 +316,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.CHICKEN_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -336,7 +331,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                     @SuppressWarnings({"unchecked", "rawtypes"})
                     Registry registry = server.registryAccess().lookupOrThrow(Registries.PIG_VARIANT);
                     @SuppressWarnings("rawtypes")
-                    java.util.Optional optHolder = registry.get(loc);
+                    Optional optHolder = registry.get(loc);
                     if (optHolder.isPresent()) {
                         vanillaValue = optHolder.get();
                     }
@@ -380,7 +375,8 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                         } else if (part.startsWith("level:")) {
                             try {
                                 level = Integer.parseInt(part.substring("level:".length()));
-                            } catch (NumberFormatException ignored) {}
+                            } catch (NumberFormatException ignored) {
+                            }
                         }
                     }
 
@@ -396,7 +392,7 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
 
                 // Handle FS_GameProfile -> ResolvableProfile for Mannequin
                 if (data.getValue() instanceof FS_GameProfile profile && accessorFieldName.equals("DATA_PROFILE")) {
-                    com.mojang.authlib.GameProfile authProfile = GameProfileImpl.asVanilla(profile);
+                    GameProfile authProfile = GameProfileImpl.asVanilla(profile);
 
                     // Check if profile has resource pack texture assets
                     if (profile.hasTextureAssets()) {
@@ -451,25 +447,25 @@ public class ClientboundSetEntityDataPacketImpl extends FS_ClientboundSetEntityD
                 // Handle Pose enum for Mannequin and other entities
                 if (data.getValue() instanceof String s && accessorFieldName.equals("DATA_POSE")) {
                     vanillaValue = switch (s.toUpperCase(Locale.ROOT)) {
-                        case "STANDING" -> net.minecraft.world.entity.Pose.STANDING;
-                        case "FALL_FLYING" -> net.minecraft.world.entity.Pose.FALL_FLYING;
-                        case "SLEEPING" -> net.minecraft.world.entity.Pose.SLEEPING;
-                        case "SWIMMING" -> net.minecraft.world.entity.Pose.SWIMMING;
-                        case "SPIN_ATTACK" -> net.minecraft.world.entity.Pose.SPIN_ATTACK;
-                        case "CROUCHING", "SNEAKING" -> net.minecraft.world.entity.Pose.CROUCHING;
-                        case "LONG_JUMPING" -> net.minecraft.world.entity.Pose.LONG_JUMPING;
-                        case "DYING" -> net.minecraft.world.entity.Pose.DYING;
-                        case "CROAKING" -> net.minecraft.world.entity.Pose.CROAKING;
-                        case "USING_TONGUE" -> net.minecraft.world.entity.Pose.USING_TONGUE;
-                        case "SITTING" -> net.minecraft.world.entity.Pose.SITTING;
-                        case "ROARING" -> net.minecraft.world.entity.Pose.ROARING;
-                        case "SNIFFING" -> net.minecraft.world.entity.Pose.SNIFFING;
-                        case "EMERGING" -> net.minecraft.world.entity.Pose.EMERGING;
-                        case "DIGGING" -> net.minecraft.world.entity.Pose.DIGGING;
-                        case "SLIDING" -> net.minecraft.world.entity.Pose.SLIDING;
-                        case "SHOOTING" -> net.minecraft.world.entity.Pose.SHOOTING;
-                        case "INHALING" -> net.minecraft.world.entity.Pose.INHALING;
-                        default -> net.minecraft.world.entity.Pose.STANDING;
+                        case "STANDING" -> Pose.STANDING;
+                        case "FALL_FLYING" -> Pose.FALL_FLYING;
+                        case "SLEEPING" -> Pose.SLEEPING;
+                        case "SWIMMING" -> Pose.SWIMMING;
+                        case "SPIN_ATTACK" -> Pose.SPIN_ATTACK;
+                        case "CROUCHING", "SNEAKING" -> Pose.CROUCHING;
+                        case "LONG_JUMPING" -> Pose.LONG_JUMPING;
+                        case "DYING" -> Pose.DYING;
+                        case "CROAKING" -> Pose.CROAKING;
+                        case "USING_TONGUE" -> Pose.USING_TONGUE;
+                        case "SITTING" -> Pose.SITTING;
+                        case "ROARING" -> Pose.ROARING;
+                        case "SNIFFING" -> Pose.SNIFFING;
+                        case "EMERGING" -> Pose.EMERGING;
+                        case "DIGGING" -> Pose.DIGGING;
+                        case "SLIDING" -> Pose.SLIDING;
+                        case "SHOOTING" -> Pose.SHOOTING;
+                        case "INHALING" -> Pose.INHALING;
+                        default -> Pose.STANDING;
                     };
                 }
 
