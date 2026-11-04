@@ -44,94 +44,97 @@ public class BlockStateValueSuggestion implements SuggestionProvider<BukkitComma
     }
 
     private Stream<String> parseProperty(BlockData blockData, String property) {
-        if (blockData instanceof Directional directional && "facing".equals(property)) {
-            return directional.getFaces().stream().map(Enum::name);
-        }
-        if (blockData instanceof Orientable orientable && "axis".equals(property)) {
-            return orientable.getAxes().stream().map(Enum::name);
-        }
-        if (blockData instanceof Rotatable && "rotation".equals(property)) {
-            return IntStream.rangeClosed(0, 15).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof StructureBlock && "mode".equals(property)) {
-            return Arrays.stream(StructureBlock.Mode.values()).map(Enum::name);
-        }
-        if (blockData instanceof Stairs && "shape".equals(property)) {
-            return Arrays.stream(Stairs.Shape.values()).map(Enum::name);
-        }
-        if (blockData instanceof Slab && "type".equals(property)) {
-            return Arrays.stream(Slab.Type.values()).map(Enum::name);
-        }
-        if (blockData instanceof Chest && "type".equals(property)) {
-            return Arrays.stream(Chest.Type.values()).map(Enum::name);
-        }
-        if (blockData instanceof Door && "hinge".equals(property)) {
-            return Arrays.stream(Door.Hinge.values()).map(Enum::name);
-        }
-        if (blockData instanceof Bisected && "half".equals(property)) {
-            return Arrays.stream(Bisected.Half.values()).map(Enum::name);
-        }
-        if (blockData instanceof Bed && "part".equals(property)) {
-            return Arrays.stream(Bed.Part.values()).map(Enum::name);
-        }
-        if (blockData instanceof Ageable ageable && "age".equals(property)) {
-            return IntStream.rangeClosed(0, ageable.getMaximumAge()).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof Levelled levelled && "level".equals(property)) {
-            return IntStream.rangeClosed(0, levelled.getMaximumLevel()).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof AnaloguePowerable ap && "power".equals(property)) {
-            return IntStream.rangeClosed(0, ap.getMaximumPower()).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof FaceAttachable && ("face".equals(property) || "attachment".equals(property))) {
-            return Arrays.stream(FaceAttachable.AttachedFace.values()).map(Enum::name);
-        }
-        if (blockData instanceof Bell && "attachment".equals(property)) {
-            return Arrays.stream(Bell.Attachment.values()).map(Enum::name);
-        }
-        if (blockData instanceof RedstoneWire rw) {
-            if ("north".equals(property) || "south".equals(property) || "east".equals(property) || "west".equals(property)) {
-                return Arrays.stream(RedstoneWire.Connection.values()).map(Enum::name);
+        return switch (blockData) {
+            case Directional directional when "facing".equals(property) -> {
+                yield directional.getFaces().stream().map(Enum::name);
             }
-            if ("power".equals(property)) {
-                return IntStream.rangeClosed(0, rw.getMaximumPower()).mapToObj(Integer::toString);
+            case Orientable orientable when "axis".equals(property) -> {
+                yield orientable.getAxes().stream().map(Enum::name);
             }
-            return Stream.empty();
-        }
-        if (blockData instanceof Snow snow && "layers".equals(property)) {
-            return IntStream.rangeClosed(1, snow.getMaximumLayers()).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof Cake cake && "bites".equals(property)) {
-            return IntStream.rangeClosed(0, cake.getMaximumBites()).mapToObj(Integer::toString);
-        }
-        if (blockData instanceof TechnicalPiston && "type".equals(property)) {
-            return Arrays.stream(TechnicalPiston.Type.values()).map(Enum::name);
-        }
-        if (blockData instanceof Bamboo bamboo) {
-            if ("leaves".equals(property)) {
-                return Arrays.stream(Bamboo.Leaves.values()).map(Enum::name);
+            case Rotatable rotatable when "rotation".equals(property) -> {
+                yield IntStream.rangeClosed(0, 15).mapToObj(Integer::toString);
             }
-            if ("age".equals(property)) {
-                return IntStream.rangeClosed(0, bamboo.getMaximumAge()).mapToObj(Integer::toString);
+            case StructureBlock structureBlock when "mode".equals(property) -> {
+                yield Arrays.stream(StructureBlock.Mode.values()).map(Enum::name);
             }
-            if ("stage".equals(property)) {
-                return Stream.of("0", "1");
+            case Stairs stairs when "shape".equals(property) -> {
+                yield Arrays.stream(Stairs.Shape.values()).map(Enum::name);
             }
-            return Stream.empty();
-        }
-        if (blockData instanceof NoteBlock) {
-            if ("instrument".equals(property)) {
-                return Arrays.stream(Instrument.values()).map(Enum::name);
+            case Slab slab when "type".equals(property) -> {
+                yield Arrays.stream(Slab.Type.values()).map(Enum::name);
             }
-            if ("note".equals(property)) {
-                return IntStream.rangeClosed(0, 24).mapToObj(Integer::toString);
+            case Chest chest when "type".equals(property) -> {
+                yield Arrays.stream(Chest.Type.values()).map(Enum::name);
             }
-            return Stream.empty();
-        }
-        if (blockData instanceof Rail && "shape".equals(property)) {
-            return Arrays.stream(Rail.Shape.values()).map(Enum::name);
-        }
-
-        return Stream.empty();
+            case Door door when "hinge".equals(property) -> {
+                yield Arrays.stream(Door.Hinge.values()).map(Enum::name);
+            }
+            case Bisected bisected when "half".equals(property) -> {
+                yield Arrays.stream(Bisected.Half.values()).map(Enum::name);
+            }
+            case Bed bed when "part".equals(property) -> {
+                yield Arrays.stream(Bed.Part.values()).map(Enum::name);
+            }
+            case Ageable ageable when "age".equals(property) -> {
+                yield IntStream.rangeClosed(0, ageable.getMaximumAge()).mapToObj(Integer::toString);
+            }
+            case Levelled levelled when "level".equals(property) -> {
+                yield IntStream.rangeClosed(0, levelled.getMaximumLevel()).mapToObj(Integer::toString);
+            }
+            case AnaloguePowerable ap when "power".equals(property) -> {
+                yield IntStream.rangeClosed(0, ap.getMaximumPower()).mapToObj(Integer::toString);
+            }
+            case FaceAttachable faceAttachable when ("face".equals(property) || "attachment".equals(property)) -> {
+                yield Arrays.stream(FaceAttachable.AttachedFace.values()).map(Enum::name);
+            }
+            case Bell bell when "attachment".equals(property) -> {
+                yield Arrays.stream(Bell.Attachment.values()).map(Enum::name);
+            }
+            case RedstoneWire rw -> {
+                if ("north".equals(property) || "south".equals(property) || "east".equals(property) || "west".equals(property)) {
+                    yield Arrays.stream(RedstoneWire.Connection.values()).map(Enum::name);
+                }
+                if ("power".equals(property)) {
+                    yield IntStream.rangeClosed(0, rw.getMaximumPower()).mapToObj(Integer::toString);
+                }
+                yield Stream.empty();
+            }
+            case Snow snow when "layers".equals(property) -> {
+                yield IntStream.rangeClosed(1, snow.getMaximumLayers()).mapToObj(Integer::toString);
+            }
+            case Cake cake when "bites".equals(property) -> {
+                yield IntStream.rangeClosed(0, cake.getMaximumBites()).mapToObj(Integer::toString);
+            }
+            case TechnicalPiston technicalPiston when "type".equals(property) -> {
+                yield Arrays.stream(TechnicalPiston.Type.values()).map(Enum::name);
+            }
+            case Bamboo bamboo -> {
+                if ("leaves".equals(property)) {
+                    yield Arrays.stream(Bamboo.Leaves.values()).map(Enum::name);
+                }
+                if ("age".equals(property)) {
+                    yield IntStream.rangeClosed(0, bamboo.getMaximumAge()).mapToObj(Integer::toString);
+                }
+                if ("stage".equals(property)) {
+                    yield Stream.of("0", "1");
+                }
+                yield Stream.empty();
+            }
+            case NoteBlock noteBlock -> {
+                if ("instrument".equals(property)) {
+                    yield Arrays.stream(Instrument.values()).map(Enum::name);
+                }
+                if ("note".equals(property)) {
+                    yield IntStream.rangeClosed(0, 24).mapToObj(Integer::toString);
+                }
+                yield Stream.empty();
+            }
+            case Rail rail when "shape".equals(property) -> {
+                yield Arrays.stream(Rail.Shape.values()).map(Enum::name);
+            }
+            case null, default -> {
+                yield Stream.empty();
+            }
+        };
     }
 }
